@@ -76,21 +76,25 @@ class ModpackAttributorController : Controller() {
         updateMessage("Getting info... 0 / $fileCount")
 
         val addons = arrayListOf<AddonData>()
+        var loadedAddons = 0L
 
-        manifest.files.forEachIndexed { index, fileJson ->
+        manifest.files.forEach { fileJson ->
             val addon = addonUtils.getAddonInfo(fileJson.projectID)
             if (addon != null) {
                 addons += addon
+                loadedAddons++
             } else {
                 println("Unable to retrieve addon information for projectId: ${fileJson.projectID}")
             }
-            updateProgress(index.toLong() + 1, fileCount)
-            updateMessage("Getting info... ${index + 1} / $fileCount")
+            updateProgress(loadedAddons, fileCount)
+            updateMessage("Getting info... $loadedAddons / $fileCount")
         }
+
+        updateMessage("Complete. $loadedAddons / $fileCount")
 
         addons.sortBy { it.name }
 
-        val accumulatedMessage = addons.joinToString("") { getAttributionMarkdown(it) }
+        val accumulatedMessage = "## Mod Attribution\n" + addons.joinToString("") { getAttributionMarkdown(it) }
 
         runLater {
             attributionText.value = accumulatedMessage
