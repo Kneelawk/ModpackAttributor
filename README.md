@@ -17,3 +17,6 @@ gradlew.bat jpackage
 ```
 
 Once this has finished, you should find the application bundle in the `build/jpackage` directory.
+
+## Screenshots
+![Application Screenshot](https://raw.githubusercontent.com/Kneelawk/ModpackAttributor/master/images/Screenshot.png)
