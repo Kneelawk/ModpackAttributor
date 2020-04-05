@@ -1,0 +1,7 @@
+/*
+ * This stylesheet is the general purpose stylesheet for the ModpackAttributor.
+ */
+
+.progress-bar:done {
+    -fx-accent: #00bb03;
+}
